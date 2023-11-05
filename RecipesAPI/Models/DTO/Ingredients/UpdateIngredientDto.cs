@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace RecipesAPI.Models.DTO.Ingredients
 {
-    public class PostIngredientDto
+    public class UpdateIngredientDto
     {
         public string Name { get; set; }
         public string Amount { get; set; }
-        public Guid RecipeId { get; set; }
     }
 }

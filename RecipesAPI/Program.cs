@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using RecipesAPI.Data;
 using RecipesAPI.Mappings;
+using RecipesAPI.Repositories.Ingredients;
+using RecipesAPI.Repositories.Recipes;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,11 @@ builder.Services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+
+builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
+builder.Services.AddScoped<IIngredientsRepository, SQLIngredientRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
