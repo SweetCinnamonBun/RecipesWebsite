@@ -1,22 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using RecipesAPI.Models.Domain;
+using RecipesAPI.Models.DTO.Ingredients;
 
-namespace RecipesAPI.Models.Domain
+namespace RecipesAPI.Models.DTO.Recipes
 {
-    public class Recipe
+    public class RecipeDto
     {
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(10, ErrorMessage = "Cannot be that long")]
         public string Name { get; set; }
         public int CookingTime { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        public List<IngredientDto> Ingredients { get; set; }
         public List<Direction> Directions { get; set; }
         public List<Category> Categories { get; set; }
-
     }
 }
