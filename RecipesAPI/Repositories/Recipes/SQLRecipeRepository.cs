@@ -25,6 +25,20 @@ namespace RecipesAPI.Repositories.Recipes
             return recipe;
         }
 
+        public async Task<Recipe?> DeleteAsync(Guid id)
+        {
+            var deletedIngredient = await dbContext.Recipes.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (deletedIngredient == null)
+            {
+                return null;
+            }
+
+            dbContext.Recipes.Remove(deletedIngredient);
+            await dbContext.SaveChangesAsync();
+            return deletedIngredient;
+        }
+
         public async Task<List<Recipe>> GetAllAsync()
         {
             return await dbContext.Recipes.Include(x => x.Ingredients).ToListAsync();

@@ -84,5 +84,19 @@ namespace RecipesAPI.Controllers
 
 
         }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var deletedRecipe = await recipeRepository.DeleteAsync(id);
+
+            if (deletedRecipe == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<RecipeDto>(deletedRecipe));
+        }
     }
 }

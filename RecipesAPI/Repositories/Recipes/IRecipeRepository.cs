@@ -15,5 +15,7 @@ namespace RecipesAPI.Repositories.Recipes
         Task<Recipe> CreateAsync(Recipe recipe);
 
         Task<Recipe?> UpdateAsync(Guid id, Recipe recipe);
+
+        Task<Recipe?> DeleteAsync(Guid id);
     }
 }
