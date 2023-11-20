@@ -6,6 +6,7 @@ using AutoMapper;
 using RecipesAPI.Models.Domain;
 using RecipesAPI.Models.DTO.Ingredients;
 using RecipesAPI.Models.DTO.Recipes;
+using RecipesAPI.Models.DTO.Users;
 
 namespace RecipesAPI.Mappings
 {
@@ -20,6 +21,8 @@ namespace RecipesAPI.Mappings
             CreateMap<PostIngredientDto, Ingredient>().ReverseMap();
             CreateMap<UpdateRecipeDto, Recipe>().ReverseMap();
             CreateMap<UpdateIngredientDto, Ingredient>().ReverseMap();
+            CreateMap<UserProfile, UserProfileDto>().ReverseMap();
+
         }
     }
 }

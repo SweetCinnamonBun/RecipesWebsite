@@ -9,9 +9,6 @@ namespace RecipesAPI.Models.Domain
     public class Recipe
     {
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(10, ErrorMessage = "Cannot be that long")]
         public string Name { get; set; }
         public int CookingTime { get; set; }
         public List<Ingredient> Ingredients { get; set; }

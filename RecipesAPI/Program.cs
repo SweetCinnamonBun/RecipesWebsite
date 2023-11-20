@@ -1,10 +1,16 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RecipesAPI.Data;
 using RecipesAPI.Mappings;
 using RecipesAPI.Repositories.Ingredients;
 using RecipesAPI.Repositories.Recipes;
 using Serilog;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using RecipesAPI.Repositories.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +38,28 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 
 builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
 builder.Services.AddScoped<IIngredientsRepository, SQLIngredientRepository>();
+builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
+
+
+
+//AUTHENTICATION
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+
+    };
+});
+
+
 
 var app = builder.Build();
 
@@ -43,6 +71,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
