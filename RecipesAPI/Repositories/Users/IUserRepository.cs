@@ -9,7 +9,9 @@ namespace RecipesAPI.Repositories.Users
 {
     public interface IUserRepository
     {
-        Task<UserProfile> GetByIdAsync(Guid id);
-        Task<UserProfile> CreateAsync(UserRegisterDto userRegisterDto);
+        Task<UserProfile?> GetByIdAsync(Guid id);
+        Task<UserProfile?> CreateAsync(UserRegisterDto userRegisterDto);
+
+        Task<UserProfile?> GetByUsername(UserLoginDto userLoginDto);
     }
 }

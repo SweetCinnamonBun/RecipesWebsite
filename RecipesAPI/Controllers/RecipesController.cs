@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipesAPI.Data;
@@ -30,6 +31,7 @@ namespace RecipesAPI.Controllers
 
         // GET: https://localhost:portnumber/api/Recipes
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var recipesDomain = await recipeRepository.GetAllAsync();

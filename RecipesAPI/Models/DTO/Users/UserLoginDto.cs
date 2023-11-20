@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipesAPI.Models.Domain
+namespace RecipesAPI.Models.DTO.Users
 {
-    public class UserLogin
+    public class UserLoginDto
     {
         public string Username { get; set; }
         public string Password { get; set; }

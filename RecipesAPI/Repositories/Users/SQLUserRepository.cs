@@ -18,7 +18,7 @@ namespace RecipesAPI.Repositories.Users
             this.dbContext = dbContext;
         }
 
-        public async Task<UserProfile> CreateAsync(UserRegisterDto userRegisterDto)
+        public async Task<UserProfile?> CreateAsync(UserRegisterDto userRegisterDto)
         {
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
 
@@ -48,6 +48,17 @@ namespace RecipesAPI.Repositories.Users
 
         }
 
+        public async Task<UserProfile?> GetByUsername(UserLoginDto userLoginDto)
+        {
+            var currentUser = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Username.ToLower() == userLoginDto.Username.ToLower());
 
+            if (currentUser == null)
+            {
+                return null;
+            }
+
+            return currentUser;
+
+        }
     }
 }
