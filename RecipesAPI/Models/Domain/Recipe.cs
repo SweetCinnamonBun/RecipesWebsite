@@ -15,5 +15,7 @@ namespace RecipesAPI.Models.Domain
         public List<Direction> Directions { get; set; }
         public List<Category> Categories { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RecipesAPI.Repositories.Users;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
+using RecipesAPI.Repositories.Directions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +74,7 @@ builder.Services.AddScoped<IRecipeRepository, SQLRecipeRepository>();
 builder.Services.AddScoped<IIngredientsRepository, SQLIngredientRepository>();
 builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
+builder.Services.AddScoped<IDirectionsRepository, SQLDirectionsRepository>();
 
 
 
@@ -112,7 +114,8 @@ app.UseAuthorization();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images"))
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
 });
 
 app.MapControllers();
