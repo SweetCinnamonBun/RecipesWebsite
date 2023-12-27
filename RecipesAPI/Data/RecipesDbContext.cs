@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RecipesAPI.Controllers;
 using RecipesAPI.Models.Domain;
 
 namespace RecipesAPI.Data
@@ -19,5 +20,6 @@ namespace RecipesAPI.Data
         public DbSet<Direction> Directions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }
