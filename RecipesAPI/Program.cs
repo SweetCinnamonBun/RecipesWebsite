@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using RecipesAPI.Repositories.Directions;
 using RecipesAPI.Repositories.ShoppingLists;
+using RecipesAPI.Repositories.Comments;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +78,7 @@ builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 builder.Services.AddScoped<IDirectionsRepository, SQLDirectionsRepository>();
 builder.Services.AddScoped<IShoppingListRepository, SQLShoppingListRepository>();
+builder.Services.AddScoped<ICommentsRepository, SQLCommentsRepository>();
 
 
 

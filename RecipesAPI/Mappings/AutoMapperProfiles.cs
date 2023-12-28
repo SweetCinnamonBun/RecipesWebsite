@@ -9,6 +9,7 @@ using RecipesAPI.Models.DTO.Recipes;
 using RecipesAPI.Models.DTO.Users;
 using RecipesAPI.Models.DTO.Directions;
 using RecipesAPI.Models.DTO.ShoppingLists;
+using RecipesAPI.Models.DTO.Comments;
 
 
 namespace RecipesAPI.Mappings
@@ -32,6 +33,10 @@ namespace RecipesAPI.Mappings
             CreateMap<AddShoppingListDto, ShoppingList>().ReverseMap();
             CreateMap<UpdateShoppingListDto, ShoppingList>().ReverseMap();
             CreateMap<ShoppingListItemDto, ShoppingListItem>().ReverseMap();
+            CreateMap<CommentDto, Comment>().ReverseMap();
+            CreateMap<UpdateCommentDto, Comment>().ReverseMap();
+            CreateMap<AddCommentDto, Comment>().ReverseMap();
+
 
 
         }

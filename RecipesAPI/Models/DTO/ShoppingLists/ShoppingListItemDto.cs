@@ -12,7 +12,6 @@ namespace RecipesAPI.Models.DTO.ShoppingLists
         public string Name { get; set; }
         public string Quantity { get; set; }
         public bool IsMarked { get; set; }
-        public Guid ShoppingListId { get; set; }
 
         //Navigation 
         // public ShoppingListDto ShoppingList { get; set; }

@@ -41,7 +41,7 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpPut]
-        [Route("id:Guid")]
+        [Route("{id:Guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateShoppingListDto updateShoppingListDto)
         {
             var shoppingListDomain = mapper.Map<ShoppingList>(updateShoppingListDto);
@@ -57,7 +57,7 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("id:Guid")]
+        [Route("{id:Guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var response = await shoppingListRepository.DeleteAsync(id);

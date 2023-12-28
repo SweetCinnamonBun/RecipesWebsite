@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipesAPI.Models.Domain
+namespace RecipesAPI.Models.DTO.Comments
 {
-    public class Comment
+    public class CommentDto
     {
         public Guid Id { get; set; }
 
@@ -16,11 +16,5 @@ namespace RecipesAPI.Models.Domain
         public Guid RecipeId { get; set; }
 
         public Guid UserId { get; set; }
-
-        //Navigation 
-        public UserProfile UserProfile { get; set; }
-
-        public Recipe Recipe { get; set; }
-
     }
 }
