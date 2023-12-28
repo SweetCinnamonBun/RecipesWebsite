@@ -70,6 +70,8 @@ namespace RecipesAPI.Repositories.Directions
             requestedDirection.StepNumber = direction.StepNumber;
             requestedDirection.Description = direction.Description;
 
+            await dbContext.SaveChangesAsync();
+
             return requestedDirection;
         }
     }

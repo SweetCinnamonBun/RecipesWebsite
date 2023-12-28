@@ -31,7 +31,6 @@ namespace RecipesAPI.Controllers
 
         // GET: https://localhost:portnumber/api/Recipes
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var recipesDomain = await recipeRepository.GetAllAsync();

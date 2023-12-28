@@ -25,6 +25,8 @@ namespace RecipesAPI.Mappings
             CreateMap<UpdateIngredientDto, Ingredient>().ReverseMap();
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();
             CreateMap<DirectionDto, Direction>().ReverseMap();
+            CreateMap<AddDirectionDto, Direction>().ReverseMap();
+            CreateMap<UpdateDirectionDto, Direction>().ReverseMap();
 
         }
     }
