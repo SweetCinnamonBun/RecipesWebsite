@@ -41,7 +41,7 @@ namespace RecipesAPI.Repositories.Recipes
 
         public async Task<List<Recipe>> GetAllAsync()
         {
-            return await dbContext.Recipes.Include(x => x.Ingredients).Include(x => x.Directions).ToListAsync();
+            return await dbContext.Recipes.Include(x => x.Ingredients).Include(x => x.Directions).Include(x => x.ShoppingList).ThenInclude(x => x.Items).ToListAsync();
         }
 
         public async Task<Recipe?> GetByIdAsync(Guid id)

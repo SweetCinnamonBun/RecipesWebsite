@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RecipesAPI.Models.Domain;
 using RecipesAPI.Models.DTO.Ingredients;
+using RecipesAPI.Models.DTO.ShoppingLists;
 
 namespace RecipesAPI.Models.DTO.Recipes
 {
@@ -15,5 +16,7 @@ namespace RecipesAPI.Models.DTO.Recipes
         public List<IngredientDto> Ingredients { get; set; }
         public List<Direction> Directions { get; set; }
         public List<Category> Categories { get; set; }
+
+        public ShoppingListDto ShoppingList { get; set; }
     }
 }

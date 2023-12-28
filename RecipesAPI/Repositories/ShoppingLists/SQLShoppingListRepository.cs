@@ -42,7 +42,7 @@ namespace RecipesAPI.Repositories.ShoppingLists
 
         public async Task<List<ShoppingList>> GetAllAsync()
         {
-            var shoppingLists = await dbContext.ShoppingLists.ToListAsync();
+            var shoppingLists = await dbContext.ShoppingLists.Include(x => x.Items).ToListAsync();
             return shoppingLists;
         }
 
