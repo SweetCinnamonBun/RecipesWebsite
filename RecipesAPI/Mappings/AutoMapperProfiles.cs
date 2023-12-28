@@ -8,6 +8,7 @@ using RecipesAPI.Models.DTO.Ingredients;
 using RecipesAPI.Models.DTO.Recipes;
 using RecipesAPI.Models.DTO.Users;
 using RecipesAPI.Models.DTO.Directions;
+using RecipesAPI.Models.DTO.ShoppingLists;
 
 
 namespace RecipesAPI.Mappings
@@ -27,6 +28,11 @@ namespace RecipesAPI.Mappings
             CreateMap<DirectionDto, Direction>().ReverseMap();
             CreateMap<AddDirectionDto, Direction>().ReverseMap();
             CreateMap<UpdateDirectionDto, Direction>().ReverseMap();
+            CreateMap<ShoppingListDto, ShoppingList>().ReverseMap();
+            CreateMap<AddShoppingListDto, ShoppingList>().ReverseMap();
+            CreateMap<UpdateShoppingListDto, ShoppingList>().ReverseMap();
+            CreateMap<ShoppingListItemDto, ShoppingListItem>().ReverseMap();
+
 
         }
     }
