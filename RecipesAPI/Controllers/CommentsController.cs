@@ -37,7 +37,7 @@ namespace RecipesAPI.Controllers
         public async Task<IActionResult> Post([FromBody] AddCommentDto addCommentDto)
         {
             var commentDomain = mapper.Map<Comment>(addCommentDto);
-            await commentsRepository.CreateAsync(commentDomain);
+            var response = await commentsRepository.CreateAsync(commentDomain);
             return Ok("Comment added");
         }
     }

@@ -18,9 +18,9 @@ namespace RecipesAPI.Models.Domain
         public Guid UserId { get; set; }
 
         //Navigation 
-        public UserProfile UserProfile { get; set; }
+        // public UserProfile UserProfile { get; set; }
 
-        public Recipe Recipe { get; set; }
+        // public Recipe Recipe { get; set; }
 
     }
 }

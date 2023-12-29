@@ -17,6 +17,8 @@ namespace RecipesAPI.Models.DTO.Recipes
         public List<Direction> Directions { get; set; }
         public List<Category> Categories { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
         public ShoppingListDto ShoppingList { get; set; }
     }
 }

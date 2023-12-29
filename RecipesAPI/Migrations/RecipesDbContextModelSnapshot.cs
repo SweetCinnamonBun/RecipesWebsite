@@ -58,7 +58,7 @@ namespace RecipesAPI.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserProfileId")
+                    b.Property<Guid?>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -261,21 +261,15 @@ namespace RecipesAPI.Migrations
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Comment", b =>
                 {
-                    b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
+                    b.HasOne("RecipesAPI.Models.Domain.Recipe", null)
                         .WithMany("Comments")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
                         .WithMany("Comments")
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("UserProfile");
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Direction", b =>

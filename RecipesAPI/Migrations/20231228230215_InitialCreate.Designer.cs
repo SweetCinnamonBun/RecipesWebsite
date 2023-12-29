@@ -12,7 +12,7 @@ using RecipesAPI.Data;
 namespace RecipesAPI.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    [Migration("20231228225632_InitialCreate")]
+    [Migration("20231228230215_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

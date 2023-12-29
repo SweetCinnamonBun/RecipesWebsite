@@ -23,7 +23,6 @@ namespace RecipesAPI.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
         public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
     }
 }

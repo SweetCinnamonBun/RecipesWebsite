@@ -12,8 +12,8 @@ using RecipesAPI.Data;
 namespace RecipesAPI.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    [Migration("20231228162406_test1")]
-    partial class test1
+    [Migration("20231228232334_new migration")]
+    partial class newmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace RecipesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
 
@@ -71,7 +74,7 @@ namespace RecipesAPI.Migrations
 
                     b.HasIndex("UserProfileId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Direction", b =>
@@ -163,7 +166,12 @@ namespace RecipesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Recipes");
                 });
@@ -174,8 +182,9 @@ namespace RecipesAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Name")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("uniqueidentifier");
@@ -262,7 +271,7 @@ namespace RecipesAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -292,6 +301,13 @@ namespace RecipesAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
+                {
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
@@ -333,6 +349,13 @@ namespace RecipesAPI.Migrations
             modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.UserProfile", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }

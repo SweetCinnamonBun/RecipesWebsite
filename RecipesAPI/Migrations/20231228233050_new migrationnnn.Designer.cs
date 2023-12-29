@@ -12,8 +12,8 @@ using RecipesAPI.Data;
 namespace RecipesAPI.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    [Migration("20231227234431_hello")]
-    partial class hello
+    [Migration("20231228233050_new migrationnnn")]
+    partial class newmigrationnnn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,10 @@ namespace RecipesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserProfileId")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -71,7 +74,7 @@ namespace RecipesAPI.Migrations
 
                     b.HasIndex("UserProfileId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Direction", b =>
@@ -163,9 +166,62 @@ namespace RecipesAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserProfileId");
+
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId")
+                        .IsUnique();
+
+                    b.ToTable("ShoppingLists");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingListItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsMarked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ShoppingListId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShoppingListId");
+
+                    b.ToTable("ShoppingListItems");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.UserProfile", b =>
@@ -208,21 +264,15 @@ namespace RecipesAPI.Migrations
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Comment", b =>
                 {
-                    b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
+                    b.HasOne("RecipesAPI.Models.Domain.Recipe", null)
                         .WithMany("Comments")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("UserProfile");
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Direction", b =>
@@ -249,6 +299,35 @@ namespace RecipesAPI.Migrations
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
                 {
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserProfileId");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
+                {
+                    b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
+                        .WithOne("ShoppingList")
+                        .HasForeignKey("RecipesAPI.Models.Domain.ShoppingList", "RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingListItem", b =>
+                {
+                    b.HasOne("RecipesAPI.Models.Domain.ShoppingList", "ShoppingList")
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ShoppingList");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
+                {
                     b.Navigation("Categories");
 
                     b.Navigation("Comments");
@@ -256,6 +335,21 @@ namespace RecipesAPI.Migrations
                     b.Navigation("Directions");
 
                     b.Navigation("Ingredients");
+
+                    b.Navigation("ShoppingList")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.UserProfile", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }
