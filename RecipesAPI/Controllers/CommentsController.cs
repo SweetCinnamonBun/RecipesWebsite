@@ -40,5 +40,36 @@ namespace RecipesAPI.Controllers
             var response = await commentsRepository.CreateAsync(commentDomain);
             return Ok("Comment added");
         }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCommentDto updateCommentDto)
+        {
+            var commentDomain = mapper.Map<Comment>(updateCommentDto);
+
+            var response = await commentsRepository.UpdateAsync(id, commentDomain);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var response = await commentsRepository.DeleteAsync(id);
+
+            if (response == null)
+            {
+                return NotFound("The Id is wrong");
+            }
+
+            return Ok("Comment was deleted successfully.");
+        }
     }
 }
