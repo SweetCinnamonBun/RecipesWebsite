@@ -71,5 +71,15 @@ namespace RecipesAPI.Controllers
 
             return Ok("Comment was deleted successfully.");
         }
+
+        [HttpGet]
+        [Route("GetUserComments/{id:Guid}")]
+        public async Task<IActionResult> GetUserComments([FromRoute] Guid id)
+        {
+
+            var userComments = await commentsRepository.GetUserComments(id);
+
+            return Ok(mapper.Map<List<CommentDto>>(userComments));
+        }
     }
 }

@@ -57,6 +57,14 @@ namespace RecipesAPI.Repositories.Comments
             return comment;
         }
 
+        public async Task<List<Comment>> GetUserComments(Guid id)
+        {
+
+
+            var userComments = await dbContext.Comments.Where(x => x.UserId == id).ToListAsync();
+            return userComments;
+        }
+
         public async Task<Comment?> UpdateAsync(Guid id, Comment comment)
         {
             var commentUpdate = await dbContext.Comments.FirstOrDefaultAsync(x => x.Id == id);

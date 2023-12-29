@@ -15,5 +15,7 @@ namespace RecipesAPI.Repositories.Comments
         Task<Comment?> UpdateAsync(Guid id, Comment comment);
 
         Task<Comment?> DeleteAsync(Guid id);
+
+        Task<List<Comment>> GetUserComments(Guid id);
     }
 }
