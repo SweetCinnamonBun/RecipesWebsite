@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipesAPI.Models.Domain
+namespace RecipesAPI.Models.DTO.Categories
 {
-    public class Category
+    public class AddCategoryDto
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
-
-        public List<Recipe> Recipes { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using RecipesAPI.Models.DTO.Directions;
 using RecipesAPI.Models.DTO.ShoppingLists;
 using RecipesAPI.Models.DTO.Comments;
 using RecipesAPI.Models.DTO.Ratings;
+using RecipesAPI.Models.DTO.Categories;
 
 
 namespace RecipesAPI.Mappings
@@ -39,7 +40,10 @@ namespace RecipesAPI.Mappings
             CreateMap<AddCommentDto, Comment>().ReverseMap();
             CreateMap<RatingDto, Rating>().ReverseMap();
             CreateMap<AddRatingDto, Rating>().ReverseMap();
-            CreateMap<AddRatingDto, Rating>().ReverseMap();
+            CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<AddCategoryDto, Category>().ReverseMap();
+            CreateMap<UpdateCategoryDto, Category>().ReverseMap();
+
 
 
 

@@ -17,6 +17,7 @@ using RecipesAPI.Repositories.Directions;
 using RecipesAPI.Repositories.ShoppingLists;
 using RecipesAPI.Repositories.Comments;
 using RecipesAPI.Repositories.Ratings;
+using RecipesAPI.Repositories.Categories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,7 @@ builder.Services.AddScoped<IDirectionsRepository, SQLDirectionsRepository>();
 builder.Services.AddScoped<IShoppingListRepository, SQLShoppingListRepository>();
 builder.Services.AddScoped<ICommentsRepository, SQLCommentsRepository>();
 builder.Services.AddScoped<IRatingsRepository, SQLRatingsRepository>();
+builder.Services.AddScoped<ICategoriesRepository, SQLCategoriesRepository>();
 
 
 
