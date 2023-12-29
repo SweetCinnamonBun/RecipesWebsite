@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipesAPI.Models.DTO.Comments
+namespace RecipesAPI.Models.Domain
 {
-    public class CommentDto
+    public class Rating
     {
         public Guid Id { get; set; }
-
-        public string Username { get; set; }
-
-        public string Text { get; set; }
-
+        public int Value { get; set; }
         public Guid RecipeId { get; set; }
-
         public Guid UserProfileId { get; set; }
+
+        //Navigation
+        public Recipe Recipe { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 }

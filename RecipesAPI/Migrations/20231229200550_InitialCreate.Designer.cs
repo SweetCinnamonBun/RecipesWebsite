@@ -12,8 +12,8 @@ using RecipesAPI.Data;
 namespace RecipesAPI.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    [Migration("20231228232334_new migration")]
-    partial class newmigration
+    [Migration("20231229200550_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,9 +57,6 @@ namespace RecipesAPI.Migrations
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
@@ -151,6 +148,30 @@ namespace RecipesAPI.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.Rating", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
@@ -303,6 +324,25 @@ namespace RecipesAPI.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("RecipesAPI.Models.Domain.Rating", b =>
+                {
+                    b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
                 {
                     b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
@@ -342,6 +382,8 @@ namespace RecipesAPI.Migrations
 
                     b.Navigation("Ingredients");
 
+                    b.Navigation("Ratings");
+
                     b.Navigation("ShoppingList")
                         .IsRequired();
                 });
@@ -354,6 +396,8 @@ namespace RecipesAPI.Migrations
             modelBuilder.Entity("RecipesAPI.Models.Domain.UserProfile", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Ratings");
 
                     b.Navigation("Recipes");
                 });

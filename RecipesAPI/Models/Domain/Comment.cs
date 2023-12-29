@@ -15,12 +15,12 @@ namespace RecipesAPI.Models.Domain
 
         public Guid RecipeId { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid UserProfileId { get; set; }
 
         //Navigation 
-        // public UserProfile UserProfile { get; set; }
+        public UserProfile UserProfile { get; set; }
 
-        // public Recipe Recipe { get; set; }
+        public Recipe Recipe { get; set; }
 
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RecipesAPI.Controllers;
 
 namespace RecipesAPI.Models.Domain
 {
@@ -15,5 +16,7 @@ namespace RecipesAPI.Models.Domain
         public List<Comment> Comments { get; set; }
 
         public List<Recipe> Recipes { get; set; }
+
+        public List<Rating> Ratings { get; set; }
     }
 }

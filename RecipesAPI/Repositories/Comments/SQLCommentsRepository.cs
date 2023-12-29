@@ -61,7 +61,7 @@ namespace RecipesAPI.Repositories.Comments
         {
 
 
-            var userComments = await dbContext.Comments.Where(x => x.UserId == id).ToListAsync();
+            var userComments = await dbContext.Comments.Where(x => x.UserProfileId == id).ToListAsync();
             return userComments;
         }
 
