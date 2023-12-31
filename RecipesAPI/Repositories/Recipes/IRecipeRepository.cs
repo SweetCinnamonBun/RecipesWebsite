@@ -12,7 +12,7 @@ namespace RecipesAPI.Repositories.Recipes
 
         Task<Recipe?> GetByIdAsync(Guid id);
 
-        Task<Recipe> CreateAsync(Recipe recipe);
+        // Task<Recipe> CreateAsync(Recipe recipe);
 
         Task<Recipe?> UpdateAsync(Guid id, Recipe recipe);
 

@@ -56,17 +56,42 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PostRecipeDto postRecipeDto)
+        public async Task<IActionResult> CreateAsync([FromBody] PostRecipeDto postRecipeDto)
         {
-            var recipeDomain = mapper.Map<Recipe>(postRecipeDto);
+            var recipe = mapper.Map<Recipe>(postRecipeDto);
+            // Assuming recipe.Categories is not null and has at least one category
+            var categoryName = recipe.Categories[0].Name.ToLower();
 
-            Console.WriteLine(recipeDomain.Categories[0].Name);
+            var category = await dbContext.Categories.SingleOrDefaultAsync(x => x.Name.ToLower() == categoryName);
 
-            recipeDomain = await recipeRepository.CreateAsync(recipeDomain);
+            if (category == null)
+            {
+                // Handle the case where the category doesn't exist
+                return NotFound("Category not found");
+            }
 
-            var recipeDto = mapper.Map<RecipeDto>(recipeDomain);
+            // Attach or add the category to the context based on its state
+            if (dbContext.Entry(category).State == EntityState.Detached)
+            {
+                dbContext.Categories.Attach(category);
+            }
 
-            return CreatedAtAction(nameof(GetById), new { id = recipeDto.Id }, recipeDto);
+            // Set the state of the category to Unchanged
+            dbContext.Entry(category).State = EntityState.Unchanged;
+
+
+            recipe.Categories.Clear();
+
+            // Add the category to the recipe
+            recipe.Categories.Add(category);
+
+            // Add the recipe to the context
+            await dbContext.Recipes.AddAsync(recipe);
+
+            // Save changes
+            await dbContext.SaveChangesAsync();
+
+            return Ok("Success");
         }
 
         [HttpPut]
