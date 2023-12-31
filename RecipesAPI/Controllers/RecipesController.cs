@@ -60,6 +60,8 @@ namespace RecipesAPI.Controllers
         {
             var recipeDomain = mapper.Map<Recipe>(postRecipeDto);
 
+            Console.WriteLine(recipeDomain.Categories[0].Name);
+
             recipeDomain = await recipeRepository.CreateAsync(recipeDomain);
 
             var recipeDto = mapper.Map<RecipeDto>(recipeDomain);
