@@ -18,6 +18,9 @@ namespace RecipesAPI.Models.Domain
         public List<Rating> Ratings { get; set; }
         public ShoppingList ShoppingList { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
 
     }
 }

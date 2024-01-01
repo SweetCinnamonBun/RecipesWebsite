@@ -23,5 +23,8 @@ namespace RecipesAPI.Models.DTO.Recipes
         public List<CommentDto> Comments { get; set; }
         public List<RatingDto> Ratings { get; set; }
         public ShoppingListDto ShoppingList { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

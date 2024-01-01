@@ -59,7 +59,8 @@ namespace RecipesAPI.Controllers
         public async Task<IActionResult> CreateAsync([FromBody] PostRecipeDto postRecipeDto)
         {
             var recipe = mapper.Map<Recipe>(postRecipeDto);
-            // Assuming recipe.Categories is not null and has at least one category
+
+            recipe.CreatedAt = DateTime.Now;
 
             var categoryNames = recipe.Categories.Select(x => x.Name).ToList();
             var categories = dbContext.Categories

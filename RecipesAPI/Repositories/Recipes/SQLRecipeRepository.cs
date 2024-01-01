@@ -70,7 +70,7 @@ namespace RecipesAPI.Repositories.Recipes
         {
             return await dbContext.Recipes.Include(x => x.Ingredients).Include(x => x.Directions).Include(x => x.Categories).Include(x => x.Comments).
                 Include(x => x.ShoppingList).
-                ThenInclude(x => x.Items).AsNoTracking().ToListAsync();
+                ThenInclude(x => x.Items).ToListAsync();
         }
 
         public async Task<Recipe?> GetByIdAsync(Guid id)
@@ -92,6 +92,7 @@ namespace RecipesAPI.Repositories.Recipes
             requestedRecipe.Ingredients = recipe.Ingredients;
             requestedRecipe.Categories = recipe.Categories;
             requestedRecipe.Directions = recipe.Directions;
+            requestedRecipe.UpdatedAt = DateTime.Now;
 
             await dbContext.SaveChangesAsync();
             return requestedRecipe;
