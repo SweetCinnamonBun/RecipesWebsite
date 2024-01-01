@@ -21,28 +21,49 @@ namespace RecipesAPI.Mappings
         public AutoMapperProfiles()
         {
             // ForMember(x => x.Name, opt => opt.MapFrom(x => x.FullName))
-            CreateMap<RecipeDto, Recipe>().ReverseMap();
-            CreateMap<PostRecipeDto, Recipe>().ReverseMap();
+
+            //Recipe
+            CreateMap<Recipe, RecipeDto>().ReverseMap();
+            CreateMap<Recipe, PostRecipeDto>().ReverseMap();
+            CreateMap<Recipe, UpdateRecipeDto>().ReverseMap();
+
+
+
+            //Ingredient
             CreateMap<Ingredient, IngredientDto>().ReverseMap();
-            CreateMap<PostIngredientDto, Ingredient>().ReverseMap();
-            CreateMap<UpdateRecipeDto, Recipe>().ReverseMap();
-            CreateMap<UpdateIngredientDto, Ingredient>().ReverseMap();
+            CreateMap<Ingredient, PostIngredientDto>().ReverseMap();
+            CreateMap<Ingredient, UpdateIngredientDto>().ReverseMap();
+
+            //Direction
+            CreateMap<Direction, DirectionDto>().ReverseMap();
+            CreateMap<Direction, AddDirectionDto>().ReverseMap();
+            CreateMap<Direction, UpdateDirectionDto>().ReverseMap();
+
+            //Comment
+            CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<Comment, AddCommentDto>().ReverseMap();
+            CreateMap<Comment, UpdateCommentDto>().ReverseMap();
+
+            //Rating
+            CreateMap<Rating, RatingDto>().ReverseMap();
+            CreateMap<Rating, AddRatingDto>().ReverseMap();
+            CreateMap<Rating, UpdateRatingDto>().ReverseMap();
+
+            //Category
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, AddCategoryDto>().ReverseMap();
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap();
+
+            //Shopping List
+
+            CreateMap<ShoppingList, ShoppingListDto>().ReverseMap();
+            CreateMap<ShoppingList, UpdateShoppingListDto>().ReverseMap();
+            CreateMap<ShoppingList, AddShoppingListDto>().ReverseMap();
+            CreateMap<ShoppingListItem, ShoppingListItemDto>().ReverseMap();
+
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();
-            CreateMap<DirectionDto, Direction>().ReverseMap();
-            CreateMap<AddDirectionDto, Direction>().ReverseMap();
-            CreateMap<UpdateDirectionDto, Direction>().ReverseMap();
-            CreateMap<ShoppingListDto, ShoppingList>().ReverseMap();
-            CreateMap<AddShoppingListDto, ShoppingList>().ReverseMap();
-            CreateMap<UpdateShoppingListDto, ShoppingList>().ReverseMap();
-            CreateMap<ShoppingListItemDto, ShoppingListItem>().ReverseMap();
-            CreateMap<CommentDto, Comment>().ReverseMap();
-            CreateMap<UpdateCommentDto, Comment>().ReverseMap();
-            CreateMap<AddCommentDto, Comment>().ReverseMap();
-            CreateMap<RatingDto, Rating>().ReverseMap();
-            CreateMap<AddRatingDto, Rating>().ReverseMap();
-            CreateMap<CategoryDto, Category>().ReverseMap();
-            CreateMap<AddCategoryDto, Category>().ReverseMap();
-            CreateMap<UpdateCategoryDto, Category>().ReverseMap();
+
+
 
 
 

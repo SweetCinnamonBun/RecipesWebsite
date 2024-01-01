@@ -62,23 +62,13 @@ namespace RecipesAPI.Controllers
             // Assuming recipe.Categories is not null and has at least one category
             var categoryName = recipe.Categories[0].Name.ToLower();
 
-            var category = await dbContext.Categories.SingleOrDefaultAsync(x => x.Name.ToLower() == categoryName);
+            var category = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name.ToLower() == categoryName);
 
             if (category == null)
             {
                 // Handle the case where the category doesn't exist
                 return NotFound("Category not found");
             }
-
-            // Attach or add the category to the context based on its state
-            if (dbContext.Entry(category).State == EntityState.Detached)
-            {
-                dbContext.Categories.Attach(category);
-            }
-
-            // Set the state of the category to Unchanged
-            dbContext.Entry(category).State = EntityState.Unchanged;
-
 
             recipe.Categories.Clear();
 

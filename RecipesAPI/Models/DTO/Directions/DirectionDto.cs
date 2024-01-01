@@ -14,7 +14,7 @@ namespace RecipesAPI.Models.DTO.Directions
         public string Description { get; set; }
         public Guid RecipeId { get; set; }
 
-        //Navigation 
+        // Navigation 
         // public Recipe Recipe { get; set; }
 
     }
