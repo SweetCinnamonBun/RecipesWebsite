@@ -60,11 +60,15 @@ namespace RecipesAPI.Controllers
         {
             var recipe = mapper.Map<Recipe>(postRecipeDto);
             // Assuming recipe.Categories is not null and has at least one category
-            var categoryName = recipe.Categories[0].Name.ToLower();
 
-            var category = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name.ToLower() == categoryName);
+            var categoryNames = recipe.Categories.Select(x => x.Name).ToList();
+            var categories = dbContext.Categories
+            .Where(x => categoryNames.Contains(x.Name))
+            .ToList();
 
-            if (category == null)
+            // var category = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name.ToLower() == categoryName);
+
+            if (categories == null)
             {
                 // Handle the case where the category doesn't exist
                 return NotFound("Category not found");
@@ -73,7 +77,7 @@ namespace RecipesAPI.Controllers
             recipe.Categories.Clear();
 
             // Add the category to the recipe
-            recipe.Categories.Add(category);
+            recipe.Categories.AddRange(categories);
 
             // Add the recipe to the context
             await dbContext.Recipes.AddAsync(recipe);
