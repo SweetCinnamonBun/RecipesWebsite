@@ -39,6 +39,7 @@ namespace RecipesAPI.Mappings
             CreateMap<Direction, DirectionDto>().ReverseMap();
             CreateMap<Direction, AddDirectionDto>().ReverseMap();
             CreateMap<Direction, UpdateDirectionDto>().ReverseMap();
+            CreateMap<Direction, AddRecipeDirectionDto>().ReverseMap();
 
             //Comment
             CreateMap<Comment, CommentDto>().ReverseMap();
@@ -60,6 +61,7 @@ namespace RecipesAPI.Mappings
             CreateMap<ShoppingList, ShoppingListDto>().ReverseMap();
             CreateMap<ShoppingList, UpdateShoppingListDto>().ReverseMap();
             CreateMap<ShoppingList, AddShoppingListDto>().ReverseMap();
+            CreateMap<ShoppingList, AddRecipeShoppingListDto>().ReverseMap();
             CreateMap<ShoppingListItem, ShoppingListItemDto>().ReverseMap();
 
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();

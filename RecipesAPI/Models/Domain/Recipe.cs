@@ -10,7 +10,7 @@ namespace RecipesAPI.Models.Domain
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int CookingTime { get; set; }
+        public string CookingTime { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         public List<Direction> Directions { get; set; }
         public List<Category> Categories { get; set; }

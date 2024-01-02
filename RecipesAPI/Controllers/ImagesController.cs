@@ -52,14 +52,14 @@ namespace RecipesAPI.Controllers
 
         private void ValidateFileUpload(ImageUploadRequestDto request)
         {
-            var allowedExtenstions = new string[] { ".jgp", ".jpeg", ".png" };
+            var allowedExtenstions = new string[] { ".jgp", ".jpeg", ".png", ".pdf" };
 
             if (!allowedExtenstions.Contains(Path.GetExtension(request.File.FileName)))
             {
                 ModelState.AddModelError("file", "Unsupported file extension");
             }
 
-            if (request.File.Length > 10485760)
+            if (request.File.Length > 70485760)
             {
                 ModelState.AddModelError("file", "File size is more than 10mb");
             }
