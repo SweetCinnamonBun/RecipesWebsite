@@ -12,6 +12,7 @@ using RecipesAPI.Models.DTO.ShoppingLists;
 using RecipesAPI.Models.DTO.Comments;
 using RecipesAPI.Models.DTO.Ratings;
 using RecipesAPI.Models.DTO.Categories;
+using RecipesAPI.Models.DTO.Images;
 
 
 namespace RecipesAPI.Mappings
@@ -63,6 +64,9 @@ namespace RecipesAPI.Mappings
 
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();
 
+            //Image
+
+            CreateMap<Image, ImageDto>().ReverseMap();
 
 
 

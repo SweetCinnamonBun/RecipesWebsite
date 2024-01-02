@@ -37,7 +37,8 @@ namespace RecipesAPI.Controllers
                     FileExtension = Path.GetExtension(request.File.FileName),
                     FileSizeInBytes = request.File.Length,
                     FileName = request.FileName,
-                    FileDescription = request.FileDescription
+                    FileDescription = request.FileDescription,
+                    RecipeId = request.RecipeId
                 };
 
                 await imageRepository.Upload(imageDomain);

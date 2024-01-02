@@ -35,13 +35,14 @@ namespace RecipesAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
         {
+            //Check if the user exists and if the password is correct
             var user = await Authenticate(userLoginDto);
 
             if (user == null)
             {
                 return NotFound("User not found");
             }
-
+            //Generate a jwt token for the user
             var token = Generate(user);
 
             return Ok(token);

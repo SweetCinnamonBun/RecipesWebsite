@@ -18,5 +18,7 @@ namespace RecipesAPI.Models.DTO.Ingredients
 
         public string? FileDescription { get; set; }
 
+        public Guid RecipeId { get; set; }
+
     }
 }

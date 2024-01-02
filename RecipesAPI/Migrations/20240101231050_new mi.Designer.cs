@@ -12,8 +12,8 @@ using RecipesAPI.Data;
 namespace RecipesAPI.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    [Migration("20240101211058_datetime")]
-    partial class datetime
+    [Migration("20240101231050_new mi")]
+    partial class newmi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,8 +79,6 @@ namespace RecipesAPI.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("UserProfileId");
-
                     b.ToTable("Comments");
                 });
 
@@ -131,7 +129,12 @@ namespace RecipesAPI.Migrations
                     b.Property<long>("FileSizeInBytes")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Images");
                 });
@@ -179,8 +182,6 @@ namespace RecipesAPI.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("UserProfileId");
-
                     b.ToTable("Ratings");
                 });
 
@@ -203,7 +204,7 @@ namespace RecipesAPI.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserProfileId")
+                    b.Property<Guid>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -311,21 +312,24 @@ namespace RecipesAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Recipe");
-
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Direction", b =>
                 {
                     b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
                         .WithMany("Directions")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("RecipesAPI.Models.Domain.Image", b =>
+                {
+                    b.HasOne("RecipesAPI.Models.Domain.Recipe", "Recipe")
+                        .WithMany("Images")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -352,22 +356,18 @@ namespace RecipesAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Recipe");
-
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.Recipe", b =>
                 {
-                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", null)
+                    b.HasOne("RecipesAPI.Models.Domain.UserProfile", "UserProfile")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserProfileId");
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.ShoppingList", b =>
@@ -398,6 +398,8 @@ namespace RecipesAPI.Migrations
 
                     b.Navigation("Directions");
 
+                    b.Navigation("Images");
+
                     b.Navigation("Ingredients");
 
                     b.Navigation("Ratings");
@@ -413,10 +415,6 @@ namespace RecipesAPI.Migrations
 
             modelBuilder.Entity("RecipesAPI.Models.Domain.UserProfile", b =>
                 {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Ratings");
-
                     b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618

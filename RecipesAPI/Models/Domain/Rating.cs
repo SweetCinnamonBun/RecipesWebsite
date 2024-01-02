@@ -14,6 +14,6 @@ namespace RecipesAPI.Models.Domain
 
         //Navigation
         public Recipe Recipe { get; set; }
-        public UserProfile UserProfile { get; set; }
+        // public UserProfile UserProfile { get; set; }
     }
 }

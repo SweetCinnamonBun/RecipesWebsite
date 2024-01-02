@@ -17,8 +17,9 @@ namespace RecipesAPI.Models.DTO.Recipes
 
         [Required]
         public int CookingTime { get; set; }
-        public List<PostIngredientDto> Ingredients { get; set; }
+        // public List<PostIngredientDto> Ingredients { get; set; }
         // public List<Direction> Directions { get; set; }
         public List<AddCategoryDto> Categories { get; set; }
+        public Guid UserProfileId { get; set; }
     }
 }
