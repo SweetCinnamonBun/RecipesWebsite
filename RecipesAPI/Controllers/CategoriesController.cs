@@ -33,6 +33,7 @@ namespace RecipesAPI.Controllers
         public async Task<IActionResult> Post([FromBody] AddCategoryDto addCategoryDto)
         {
             var categoryDomain = mapper.Map<Category>(addCategoryDto);
+            Console.WriteLine("hello");
 
             var response = await categoriesRepository.CreateAsync(categoryDomain);
 
