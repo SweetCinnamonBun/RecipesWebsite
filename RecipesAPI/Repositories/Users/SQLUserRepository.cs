@@ -11,54 +11,54 @@ namespace RecipesAPI.Repositories.Users
 {
     public class SQLUserRepository : IUserRepository
     {
-        private readonly RecipesDbContext dbContext;
+        // private readonly RecipesDbContext dbContext;
 
-        public SQLUserRepository(RecipesDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        // public SQLUserRepository(RecipesDbContext dbContext)
+        // {
+        //     this.dbContext = dbContext;
+        // }
 
-        public async Task<UserProfile?> CreateAsync(UserRegisterDto userRegisterDto)
-        {
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
+        // public async Task<UserProfile?> CreateAsync(UserRegisterDto userRegisterDto)
+        // {
+        //     string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password);
 
-            var newUser = new UserProfile()
-            {
-                Username = userRegisterDto.Username,
-                Email = userRegisterDto.Email,
-                PasswordHash = passwordHash,
-                Role = "User"
-            };
+        //     var newUser = new UserProfile()
+        //     {
+        //         Username = userRegisterDto.Username,
+        //         Email = userRegisterDto.Email,
+        //         PasswordHash = passwordHash,
+        //         Role = "User"
+        //     };
 
-            await dbContext.UserProfiles.AddAsync(newUser);
-            await dbContext.SaveChangesAsync();
-            return newUser;
-        }
+        //     await dbContext.UserProfiles.AddAsync(newUser);
+        //     await dbContext.SaveChangesAsync();
+        //     return newUser;
+        // }
 
-        public async Task<UserProfile?> GetByIdAsync(Guid id)
-        {
-            var requestUser = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == id);
+        // public async Task<UserProfile?> GetByIdAsync(Guid id)
+        // {
+        //     var requestUser = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (requestUser == null)
-            {
-                return null;
-            }
+        //     if (requestUser == null)
+        //     {
+        //         return null;
+        //     }
 
-            return requestUser;
+        //     return requestUser;
 
-        }
+        // }
 
-        public async Task<UserProfile?> GetByUsername(UserLoginDto userLoginDto)
-        {
-            var currentUser = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Username.ToLower() == userLoginDto.Username.ToLower());
+        // public async Task<UserProfile?> GetByUsername(UserLoginDto userLoginDto)
+        // {
+        //     var currentUser = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Username.ToLower() == userLoginDto.Username.ToLower());
 
-            if (currentUser == null)
-            {
-                return null;
-            }
+        //     if (currentUser == null)
+        //     {
+        //         return null;
+        //     }
 
-            return currentUser;
+        //     return currentUser;
 
-        }
+        // }
     }
 }

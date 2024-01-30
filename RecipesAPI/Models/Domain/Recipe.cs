@@ -20,7 +20,7 @@ namespace RecipesAPI.Models.Domain
         public List<Image> Images { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
 
         //Navigation
         public UserProfile UserProfile { get; set; }

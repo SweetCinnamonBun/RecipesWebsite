@@ -21,69 +21,69 @@ namespace RecipesAPI.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly IConfiguration config;
-        private readonly IUserRepository userRepository;
+        // private readonly IConfiguration config;
+        // private readonly IUserRepository userRepository;
 
-        public LoginController(IConfiguration config, IUserRepository userRepository)
-        {
+        // public LoginController(IConfiguration config, IUserRepository userRepository)
+        // {
 
-            this.config = config;
-            this.userRepository = userRepository;
-        }
+        //     this.config = config;
+        //     this.userRepository = userRepository;
+        // }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
-        {
-            //Check if the user exists and if the password is correct
-            var user = await Authenticate(userLoginDto);
+        // [AllowAnonymous]
+        // [HttpPost]
+        // public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
+        // {
+        //     //Check if the user exists and if the password is correct
+        //     var user = await Authenticate(userLoginDto);
 
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-            //Generate a jwt token for the user
-            var token = Generate(user);
+        //     if (user == null)
+        //     {
+        //         return NotFound("User not found");
+        //     }
+        //     //Generate a jwt token for the user
+        //     var token = Generate(user);
 
-            return Ok(token);
+        //     return Ok(token);
 
 
-        }
+        // }
 
-        private async Task<UserProfile?> Authenticate(UserLoginDto userLoginDto)
-        {
+        // private async Task<UserProfile?> Authenticate(UserLoginDto userLoginDto)
+        // {
 
-            var currentUser = await userRepository.GetByUsername(userLoginDto);
+        //     var currentUser = await userRepository.GetByUsername(userLoginDto);
 
-            if (currentUser == null)
-            {
-                return null;
-            }
+        //     if (currentUser == null)
+        //     {
+        //         return null;
+        //     }
 
-            if (!BCrypt.Net.BCrypt.Verify(userLoginDto.Password, currentUser.PasswordHash))
-            {
-                return null;
-            }
+        //     if (!BCrypt.Net.BCrypt.Verify(userLoginDto.Password, currentUser.PasswordHash))
+        //     {
+        //         return null;
+        //     }
 
-            return currentUser;
-        }
+        //     return currentUser;
+        // }
 
-        private string Generate(UserProfile user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        // private string Generate(UserProfile user)
+        // {
+        //     var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
+        //     var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
+        //     var claims = new[]
+        //     {
+        //         new Claim(ClaimTypes.NameIdentifier, user.Username),
+        //         new Claim(ClaimTypes.Email, user.Email),
+        //         new Claim(ClaimTypes.Role, user.Role)
+        //     };
 
-            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"], claims, expires: DateTime.Now.AddMinutes(20), signingCredentials: credentials);
+        //     var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"], claims, expires: DateTime.Now.AddMinutes(20), signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+        //     return new JwtSecurityTokenHandler().WriteToken(token);
 
-        }
+        // }
     }
 }

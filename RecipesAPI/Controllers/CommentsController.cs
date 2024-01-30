@@ -73,8 +73,8 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserComments/{id:Guid}")]
-        public async Task<IActionResult> GetUserComments([FromRoute] Guid id)
+        [Route("GetUserComments/{id}")]
+        public async Task<IActionResult> GetUserComments([FromRoute] string id)
         {
 
             var userComments = await commentsRepository.GetUserComments(id);

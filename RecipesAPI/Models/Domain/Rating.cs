@@ -10,7 +10,7 @@ namespace RecipesAPI.Models.Domain
         public Guid Id { get; set; }
         public int Value { get; set; }
         public Guid RecipeId { get; set; }
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
 
         //Navigation
         public Recipe Recipe { get; set; }

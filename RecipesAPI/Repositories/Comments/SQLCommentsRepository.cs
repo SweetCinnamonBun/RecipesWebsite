@@ -57,7 +57,7 @@ namespace RecipesAPI.Repositories.Comments
             return comment;
         }
 
-        public async Task<List<Comment>> GetUserComments(Guid id)
+        public async Task<List<Comment>> GetUserComments(string id)
         {
 
 

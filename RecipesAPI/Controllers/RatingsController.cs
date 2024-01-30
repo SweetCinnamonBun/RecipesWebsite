@@ -87,8 +87,8 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserRatings/{id:Guid}")]
-        public async Task<IActionResult> GetUserRatings([FromRoute] Guid id)
+        [Route("GetUserRatings/{id}")]
+        public async Task<IActionResult> GetUserRatings([FromRoute] string id)
         {
             var ratings = await ratingsRepository.GetUserRatings(id);
             return Ok(mapper.Map<List<RatingDto>>(ratings));

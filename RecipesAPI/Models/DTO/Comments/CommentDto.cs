@@ -15,6 +15,6 @@ namespace RecipesAPI.Models.DTO.Comments
 
         public Guid RecipeId { get; set; }
 
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
     }
 }

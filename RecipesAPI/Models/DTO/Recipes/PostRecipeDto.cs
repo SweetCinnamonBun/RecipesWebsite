@@ -25,6 +25,6 @@ namespace RecipesAPI.Models.DTO.Recipes
         public List<AddCategoryDto> Categories { get; set; }
         public AddRecipeShoppingListDto ShoppingList { get; set; }
 
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
     }
 }

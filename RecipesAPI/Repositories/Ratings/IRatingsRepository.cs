@@ -16,6 +16,6 @@ namespace RecipesAPI.Repositories.Ratings
 
         Task<Rating?> DeleteAsync(Guid id);
 
-        Task<List<Rating>> GetUserRatings(Guid id);
+        Task<List<Rating>> GetUserRatings(string id);
     }
 }

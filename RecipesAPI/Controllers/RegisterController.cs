@@ -14,29 +14,29 @@ namespace RecipesAPI.Controllers
     [Route("api/[controller]")]
     public class RegisterController : ControllerBase
     {
-        private readonly IConfiguration config;
-        private readonly IUserRepository userRepository;
+        // private readonly IConfiguration config;
+        // private readonly IUserRepository userRepository;
 
-        private readonly IMapper mapper;
-        public RegisterController(IConfiguration config, IUserRepository userRepository, IMapper mapper)
-        {
-            this.mapper = mapper;
-            this.userRepository = userRepository;
-            this.config = config;
+        // private readonly IMapper mapper;
+        // public RegisterController(IConfiguration config, IUserRepository userRepository, IMapper mapper)
+        // {
+        //     this.mapper = mapper;
+        //     this.userRepository = userRepository;
+        //     this.config = config;
 
-        }
+        // }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
-        {
-            if (ModelState.IsValid)
-            {
-                var newUser = await userRepository.CreateAsync(userRegisterDto);
-                return Ok(mapper.Map<UserProfileDto>(newUser));
-            }
+        // [AllowAnonymous]
+        // [HttpPost]
+        // public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var newUser = await userRepository.CreateAsync(userRegisterDto);
+        //         return Ok(mapper.Map<UserProfileDto>(newUser));
+        //     }
 
-            return BadRequest("Something went wrong");
-        }
+        //     return BadRequest("Something went wrong");
+        // }
     }
 }

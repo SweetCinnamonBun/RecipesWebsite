@@ -16,6 +16,6 @@ namespace RecipesAPI.Repositories.Comments
 
         Task<Comment?> DeleteAsync(Guid id);
 
-        Task<List<Comment>> GetUserComments(Guid id);
+        Task<List<Comment>> GetUserComments(string id);
     }
 }

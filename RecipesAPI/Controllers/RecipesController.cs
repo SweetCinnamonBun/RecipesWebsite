@@ -60,6 +60,8 @@ namespace RecipesAPI.Controllers
         {
             var recipe = mapper.Map<Recipe>(postRecipeDto);
 
+            // var user = await dbContext.UserProfiles.FirstOrDefaultAsync(x => x.Id == postRecipeDto.UserProfileId);
+            // recipe.UserProfile = user;
             recipe.CreatedAt = DateTime.Now;
 
             var categoryNames = recipe.Categories.Select(x => x.Name).ToList();

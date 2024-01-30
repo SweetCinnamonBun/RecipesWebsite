@@ -18,6 +18,8 @@ using RecipesAPI.Repositories.ShoppingLists;
 using RecipesAPI.Repositories.Comments;
 using RecipesAPI.Repositories.Ratings;
 using RecipesAPI.Repositories.Categories;
+using RecipesAPI.Models.Domain;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddIdentity<UserProfile, IdentityRole>().AddEntityFrameworkStores<RecipesDbContext>().AddDefaultTokenProviders();
+
 builder.Services.AddDbContext<RecipesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RecipesWebsiteConnectionString")));
 
 
@@ -101,6 +105,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 
     };
+});
+
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true; // Allow passwords without a non-alphanumeric character
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
 });
 
 

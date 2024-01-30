@@ -9,6 +9,6 @@ namespace RecipesAPI.Models.DTO.Ratings
     {
         public int Value { get; set; }
         public Guid RecipeId { get; set; }
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
     }
 }

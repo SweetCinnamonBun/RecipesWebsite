@@ -29,6 +29,6 @@ namespace RecipesAPI.Models.DTO.Recipes
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public Guid UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
     }
 }

@@ -69,7 +69,7 @@ namespace RecipesAPI.Repositories.Ratings
             return updateRating;
         }
 
-        public async Task<List<Rating>> GetUserRatings(Guid id)
+        public async Task<List<Rating>> GetUserRatings(string id)
         {
 
 
