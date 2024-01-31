@@ -9,6 +9,7 @@ namespace RecipesAPI.Models.DTO.Users
     public class AddUserDto
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Username { get; set; }
 
         [Required]

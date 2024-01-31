@@ -20,6 +20,7 @@ using RecipesAPI.Repositories.Ratings;
 using RecipesAPI.Repositories.Categories;
 using RecipesAPI.Models.Domain;
 using Microsoft.AspNetCore.Identity;
+using RecipesAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,24 @@ builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+
+    };
+});
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -87,25 +106,11 @@ builder.Services.AddScoped<IShoppingListRepository, SQLShoppingListRepository>()
 builder.Services.AddScoped<ICommentsRepository, SQLCommentsRepository>();
 builder.Services.AddScoped<IRatingsRepository, SQLRatingsRepository>();
 builder.Services.AddScoped<ICategoriesRepository, SQLCategoriesRepository>();
+builder.Services.AddScoped<ITokenRepository, SQLTokensRepository>();
 
 
 
 //AUTHENTICATION
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-
-    };
-});
 
 
 builder.Services.Configure<IdentityOptions>(options =>

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipesAPI.Data;
 using RecipesAPI.Models.Domain;
+using RecipesAPI.Models.DTO;
 using RecipesAPI.Models.DTO.Users;
+using RecipesAPI.Repositories;
 
 namespace RecipesAPI.Controllers
 {
@@ -17,11 +19,13 @@ namespace RecipesAPI.Controllers
     {
         private readonly RecipesDbContext dbContext;
         private readonly UserManager<UserProfile> userManager;
+        private readonly ITokenRepository tokenRepository;
 
-        public UserProfileController(RecipesDbContext dbContext, UserManager<UserProfile> userManager)
+        public UserProfileController(RecipesDbContext dbContext, UserManager<UserProfile> userManager, ITokenRepository tokenRepository)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
+            this.tokenRepository = tokenRepository;
         }
 
         [HttpGet]
@@ -67,6 +71,38 @@ namespace RecipesAPI.Controllers
             }
 
             return BadRequest("Failed to register user: " + string.Join(", ", identityResult.Errors.Select(e => e.Description)));
+        }
+
+        [HttpPost]
+        [Route("auth/login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
+        {
+            var user = await userManager.FindByEmailAsync(userLoginDto.Username);
+
+            if (user != null)
+            {
+                var checkPasswordResult = await userManager.CheckPasswordAsync(user, userLoginDto.Password);
+
+                if (checkPasswordResult)
+                {
+                    var roles = await userManager.GetRolesAsync(user);
+
+                    if (roles != null)
+                    {
+                        var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
+
+                        var response = new LoginResponseDto
+                        {
+                            JwtToken = jwtToken
+                        };
+
+                        return Ok(response);
+                    }
+
+                }
+            }
+
+            return BadRequest("Didn't work");
         }
     }
 }
