@@ -25,7 +25,7 @@ namespace RecipesAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Writer, Reader")]
+        // [Authorize(AuthenticationSchemes = "Bearer", Roles = "Writer, Reader")]
         public async Task<IActionResult> GetAll()
         {
             var categories = await categoriesRepository.GetAllAsync();

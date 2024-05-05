@@ -52,7 +52,7 @@ namespace RecipesAPI.Controllers
 
         private void ValidateFileUpload(ImageUploadRequestDto request)
         {
-            var allowedExtenstions = new string[] { ".jgp", ".jpeg", ".png", ".pdf" };
+            var allowedExtenstions = new string[] { ".jpg", ".jpeg", ".png", ".pdf" };
 
             if (!allowedExtenstions.Contains(Path.GetExtension(request.File.FileName)))
             {

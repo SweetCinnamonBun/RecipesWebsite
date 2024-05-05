@@ -16,7 +16,6 @@ namespace RecipesAPI.Models.Domain
         // public string Role { get; set; }
         public List<Recipe> Recipes { get; set; }
 
-        public string? Address { get; set; }
         // public List<Comment> Comments { get; set; }
         // public List<Rating> Ratings { get; set; }
     }
